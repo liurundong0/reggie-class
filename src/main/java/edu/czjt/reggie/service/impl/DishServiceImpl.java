@@ -16,11 +16,44 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by jinkun.tian on 2023/4/27
+ * Created by wangxiaoshan
  */
 @Service
-public class DishServiceImpl {
+public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements DishService {
 
+    @Autowired
+    DishFlavorService dishFlavorService;
 
+    @Override
+    public DishDto getByIdWithFlavor(Long id) {
+        // 创建dto
+        DishDto dishDto = new DishDto();
+        // 获取dish
+        Dish dish = this.getById(id);
+        if (dish != null) {
+            BeanUtils.copyProperties(dish, dishDto);
+            // 获取flavors
+            List<DishFlavor> flavors = dishFlavorService.getFlavorsByDishId(id);
+            dishDto.setFlavors(flavors);
+        }
+        return dishDto;
+    }
 
+    @Transactional
+    public void saveWithFlavor(DishDto dishDto) {
+        // 保存菜品的基本信息到菜品表dish
+        this.save(dishDto);
+
+        Long dishId = dishDto.getId();
+
+        List<DishFlavor> flavors = dishDto.getFlavors();
+
+        flavors = flavors.stream().map((item) -> {
+            item.setDishId(dishId);
+            return item;
+        }).collect(Collectors.toList());
+
+        dishFlavorService.saveBatch(flavors);
+
+    }
 }
