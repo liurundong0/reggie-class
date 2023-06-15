@@ -105,29 +105,7 @@ public class DishController {
         return R.success(dishDtoPage);
     }
 
-    /**
-     * 将dish转化为dishDto
-     *
-     * @param dish
-     * @return
-     */
-    private DishDto dish2dishDto(Dish dish) {
-        DishDto dishDto = new DishDto();
 
-        BeanUtils.copyProperties(dish, dishDto);
-
-        Category category = categoryService.getById(dish.getCategoryId());
-
-        if (category != null) {
-            dishDto.setCategoryName(category.getName());
-        }
-
-        List<DishFlavor> dishFlavors = dishFlavorService.getFlavorsByDishId(dish.getId());
-
-        dishDto.setFlavors(dishFlavors);
-
-        return dishDto;
-    }
     /**
      * Created by wangweiwei
      */
