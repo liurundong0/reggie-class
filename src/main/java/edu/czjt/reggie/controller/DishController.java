@@ -104,8 +104,34 @@ public class DishController {
 
         return R.success(dishDtoPage);
     }
-
+/**
+* Created by wangweiwei 
+*/
     
+     /**
+     * 将dish转化为dishDto
+     *
+     * @param dish
+     * @return
+     */
+    private DishDto dish2dishDto(Dish dish) {
+        DishDto dishDto = new DishDto();
+        //BeanUtils工具类：作用是将dishDto对象的属性值复制到dish对象的属性中
+        BeanUtils.copyProperties(dish, dishDto);
+
+        Category category = categoryService.getById(dish.getCategoryId());
+
+        if (category != null) {
+            dishDto.setCategoryName(category.getName());
+        }
+
+        List<DishFlavor> dishFlavors = dishFlavorService.getFlavorsByDishId(dish.getId());
+
+        dishDto.setFlavors(dishFlavors);
+
+        return dishDto;
+    }
+
     //新增菜品
     @PostMapping()
     public R<String> save(@RequestBody DishDto dishDto) {
