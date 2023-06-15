@@ -116,28 +116,7 @@ public class DishController {
      * @return
      */
     
-    private DishDto dishdishDto(Dish dish) {
-        DishDto dishDto = new DishDto();
-        //BeanUtils工具类作用：将dishDto对象的属性值复制到dish对象的属性中
-        BeanUtils.copyProperties(dish, dishDto);
-        
-        //categoryService通过dish对象中的categoryId属性来获取对应的Category对象
-        Category category = categoryService.getById(dish.getCategoryId());
-
-        if (category != null) {
-            dishDto.setCategoryName(category.getName());
-        }
-        
-        /**
-            *通过dishFlavorService获取 dish 对应的所有dishFlavor（菜品口味）对象，
-            *将获取到的菜品口味对象存储在 List<DishFlavor> 类型的 dishFlavors 变量中
-        */
-        List<DishFlavor> dishFlavors = dishFlavorService.getFlavorsByDishId(dish.getId());
-       //将dishFlavors列表设置到dishDto对象的flavors属性中
-        dishDto.setFlavors(dishFlavors);
-        //返回菜品口味
-        return dishDto;
-    }
+   
     
     @PostMapping()
     public R<String> save(@RequestBody DishDto dishDto) {
