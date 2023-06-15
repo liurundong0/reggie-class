@@ -105,19 +105,8 @@ public class DishController {
         return R.success(dishDtoPage);
     }
 
-    /**
-     * Created by wangweiwei
-     */
-
-    /**
-     * 将dish转化为dishDto
-     *
-     * @param dish
-     * @return
-     */
     
-   
-    
+    //新增菜品
     @PostMapping()
     public R<String> save(@RequestBody DishDto dishDto) {
         //通过日志打印debug日志信息
