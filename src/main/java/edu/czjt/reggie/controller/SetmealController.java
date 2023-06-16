@@ -24,6 +24,12 @@ import java.util.stream.Collectors;
  * 套餐管理
  */
 
+
+/**
+ *@hxx2799: 新增套餐 获取套餐状态 更新套餐 
+ *@liuhaoyang 套餐分页查询 对套餐种类进行删查
+ */
+
 @RestController
 @RequestMapping("/setmeal")
 @Slf4j
