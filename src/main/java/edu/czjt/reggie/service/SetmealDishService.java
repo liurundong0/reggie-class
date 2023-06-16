@@ -4,5 +4,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import edu.czjt.reggie.entity.SetmealDish;
 
 
-public interface SetmealDishService  {
+public interface SetmealDishService extends IService<SetmealDish> {
 }
+
