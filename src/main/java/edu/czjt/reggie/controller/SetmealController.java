@@ -1,4 +1,48 @@
-   * @return
+package edu.czjt.reggie.controller;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import edu.czjt.reggie.common.R;
+import edu.czjt.reggie.dto.SetmealDto;
+import edu.czjt.reggie.entity.Category;
+import edu.czjt.reggie.entity.Setmeal;
+import edu.czjt.reggie.entity.SetmealDish;
+import edu.czjt.reggie.service.CategoryService;
+import edu.czjt.reggie.service.SetmealDishService;
+import edu.czjt.reggie.service.SetmealService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * 套餐管理
+ */
+
+@RestController
+@RequestMapping("/setmeal")
+@Slf4j
+public class SetmealController {
+
+    @Autowired
+    private SetmealService setmealService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private SetmealDishService setmealDishService;
+
+    /**
+     * 新增套餐
+     *
+     * @param setmealDto
+     * @return
      */
     @PostMapping
     public R<String> save(@RequestBody SetmealDto setmealDto) {
